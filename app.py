@@ -2,9 +2,9 @@
 import sys
 import os
 import boto3
-from langchain_community.embeddings import BedrockEmbeddings
 from langchain_community.vectorstores import OpenSearchVectorSearch
 from requests_aws4auth import AWS4Auth
+from langchain_community.embeddings import BedrockEmbeddings
 from langchain.chains import RetrievalQA                       
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
@@ -35,7 +35,7 @@ def create_opensearch_vector_search_client(indexName, bedrock_embeddings_client,
     docsearch = OpenSearchVectorSearch(
         index_name=indexName,
         embedding_function=bedrock_embeddings_client,
-        opensearch_url="cb97nvmsmyyx5gwdz5d0.us-east-1.aoss.amazonaws.com",
+        opensearch_url="https://cb97nvmsmyyx5gwdz5d0.us-east-1.aoss.amazonaws.com",
         http_auth=awsauth,
         is_aoss=_is_aoss,
         timeout=300,
@@ -86,7 +86,7 @@ def lambda_handler(event, context):
         except Exception as e:
             print(e)    
 
-        region = "us-east-1"
+        region = "us-west-2"
         indexName = "hybrid-search" 
         
 
@@ -140,3 +140,7 @@ def lambda_handler(event, context):
         }
     
     return response
+
+event = {"body":json.dumps({"question":'What is Cold Spraying?'})}
+response = lambda_handler(event,None)
+print(response)
