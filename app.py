@@ -141,6 +141,6 @@ def lambda_handler(event, context):
     
     return response
 
-event = {"body":json.dumps({"question":'What is Cold Spraying?'})}
-response = lambda_handler(event,None)
-print(response)
+#event = {"body":json.dumps({"question":'What is Cold Spraying?'})}
+#response = lambda_handler(event,None)
+#print(response)
