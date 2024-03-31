@@ -85,4 +85,4 @@ langchain
 requests-aws4auth
 opensearch-py
 langchain-community
-langchain[all]
+
