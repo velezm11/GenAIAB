@@ -5,7 +5,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="AnyWhere AI Assistant", page_icon="📖")
+st.set_page_config(page_title="AnyWhere AI Assistant", page_icon="Air Products Logo.png")
 st.title("📖 AnyWhere AI Assistant")
 
 """
