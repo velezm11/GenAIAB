@@ -19,6 +19,8 @@ if len(msgs.messages) == 0:
 
 
 view_messages = st.expander("View the message contents in session state")
+if "langchain_messages" not in st.session_state:
+  st.session_state["langchain_messages"] = []
 
 # Set up the LangChain, passing in Message History
 
