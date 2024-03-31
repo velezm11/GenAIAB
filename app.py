@@ -16,8 +16,7 @@ Your Desk-side Digital Genius. Redefining Efficiency, One Prompt at a Time!
 msgs = StreamlitChatMessageHistory(key="langchain_messages")
 if len(msgs.messages) == 0:
     msgs.add_ai_message("How can I help you?")
-if "langchain_messages" not in st.session_state:
-  st.session_state["langchain_messages"] = []
+
 
 view_messages = st.expander("View the message contents in session state")
 
