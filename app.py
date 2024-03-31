@@ -9,7 +9,7 @@ st.set_page_config(page_title="AnyWhere AI Assistant", page_icon="Air Products L
 st.title("AnyWhere AI Assistant")
 
 """
-Transforming Tasks into Triumphs!
+Your Desk-side Digital Genius. Redefining Efficiency, One Prompt at a Time!
 """
 
 # Set up memory
