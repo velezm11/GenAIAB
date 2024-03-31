@@ -6,7 +6,7 @@ import streamlit as st
 import requests
 
 st.set_page_config(page_title="AnyWhere AI Assistant", page_icon="Air Products Logo.png")
-st.title(page_icon="Air Products Logo.png", "AnyWhere AI Assistant")
+st.title(page_img="Air Products Logo.png", "AnyWhere AI Assistant")
 
 """
 A basic example of using StreamlitChatMessageHistory to help LLMChain remember messages in a conversation.
