@@ -19,8 +19,6 @@ if len(msgs.messages) == 0:
 
 
 view_messages = st.expander("View the message contents in session state")
-if "langchain_messages" not in st.session_state:
-  st.session_state["langchain_messages"] = []
 
 # Set up the LangChain, passing in Message History
 
@@ -38,3 +36,33 @@ def send_query_to_api(query):
     payload = {"question": query}
     response = requests.post(api_endpoint, json=payload)
     return response.json()
+
+chain_with_history = RunnableWithMessageHistory(
+    prompt,
+    lambda session_id: msgs,
+    input_messages_key="question",
+    history_messages_key="history",
+)
+
+# Render current messages from StreamlitChatMessageHistory
+for msg in msgs.messages:
+    st.chat_message(msg.type).write(msg.content)
+
+# If user inputs a new prompt, generate and draw a new response
+if prompt := st.chat_input():
+    st.chat_message("human").write(prompt)
+    # Note: new messages are saved to history automatically by Langchain during run
+    response = send_query_to_api(prompt)
+    st.chat_message("ai").write(response)
+
+# Draw the messages at the end, so newly generated ones show up immediately
+with view_messages:
+    """
+    Message History initialized with:
+    ```python
+    msgs = StreamlitChatMessageHistory(key="langchain_messages")
+    ```
+
+    Contents of `st.session_state.langchain_messages`:
+    """
+    view_messages.json(st.session_state.langchain_messages)
