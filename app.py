@@ -38,4 +38,3 @@ def send_query_to_api(query):
     payload = {"question": query}
     response = requests.post(api_endpoint, json=payload)
     return response.json()
-
