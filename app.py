@@ -1,70 +1,34 @@
-from langchain_community.chat_message_histories import StreamlitChatMessageHistory
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables.history import RunnableWithMessageHistory
 
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="AnyWhere AI Assistant", page_icon="Air Products Logo.png")
-st.title("AnyWhere AI Assistant")
+# Define API endpoint
+API_ENDPOINT = "https://3fj11w32na.execute-api.us-east-1.amazonaws.com/Prod/hello/"
 
-"""
-Your Desk-side Digital Genius. Redefining Efficiency, One Prompt at a Time!
-"""
-
-# Set up memory
-msgs = StreamlitChatMessageHistory(key="langchain_messages")
-if len(msgs.messages) == 0:
-    msgs.add_ai_message("How can I help you?")
+# Streamlit app
+def main():
+    st.set_page_config(page_title="StreamlitChatMessageHistory", page_icon="📖")
+    st.title("📖 StreamlitChatMessageHistory")
 
 
-view_messages = st.expander("View the message contents in session state")
-if "langchain_messages" not in st.session_state:
-  st.session_state["langchain_messages"] = []
+    # Input field for user's prompt
+    user_prompt = st.text_input("Enter your prompt")
 
-# Set up the LangChain, passing in Message History
+    # Button to send POST request
+    if st.button("Send Prompt"):
+        try:
+            # Send POST request to API with user's prompt
+            response = requests.post(API_ENDPOINT, data=user_prompt)
 
-prompt = ChatPromptTemplate.from_messages(
-    [
-        ("system", "You are an AI chatbot having a conversation with a human."),
-        MessagesPlaceholder(variable_name="history"),
-        ("human", "{question}"),
-    ]
-)
+            # Display response
+            st.subheader("Response:")
+            if response.status_code == 200:
+                response_text = response.text
+                st.write(response_text)
+            else:
+                st.error(f"Error {response.status_code}: {response.reason}")
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
 
-# Function to send user query to API Gateway and fetch response
-def send_query_to_api(query):
-    api_endpoint = "https://3fj11w32na.execute-api.us-east-1.amazonaws.com/Prod/hello/"
-    payload = {"question": query}
-    response = requests.post(api_endpoint, json=payload)
-    return response.json()
-
-chain_with_history = RunnableWithMessageHistory(
-    prompt,
-    lambda session_id: msgs,
-    input_messages_key="question",
-    history_messages_key="history",
-)
-
-# Render current messages from StreamlitChatMessageHistory
-for msg in msgs.messages:
-    st.chat_message(msg.type).write(msg.content)
-
-# If user inputs a new prompt, generate and draw a new response
-if prompt := st.chat_input():
-    st.chat_message("human").write(prompt)
-    # Note: new messages are saved to history automatically by Langchain during run
-    response = send_query_to_api(prompt)
-    st.chat_message("ai").write(response)
-
-# Draw the messages at the end, so newly generated ones show up immediately
-with view_messages:
-    """
-    Message History initialized with:
-    ```python
-    msgs = StreamlitChatMessageHistory(key="langchain_messages")
-    ```
-
-    Contents of `st.session_state.langchain_messages`:
-    """
-    view_messages.json(st.session_state.langchain_messages)
+if __name__ == "__main__":
+    main()
