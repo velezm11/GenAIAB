@@ -7,8 +7,12 @@ API_ENDPOINT = "https://3fj11w32na.execute-api.us-east-1.amazonaws.com/Prod/hell
 
 # Streamlit app
 def main():
-    st.set_page_config(page_title="StreamlitChatMessageHistory", page_icon="📖")
-    st.title("📖 StreamlitChatMessageHistory")
+st.set_page_config(page_title="AnyWhere AI Assistant", page_icon="Air Products Logo.png")
+st.title("AnyWhere AI Assistant")
+
+"""
+Your Desk-side Digital Genius. Redefining Efficiency, One Prompt at a Time!
+"""
 
 
     # Input field for user's prompt
