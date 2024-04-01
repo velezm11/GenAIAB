@@ -18,7 +18,6 @@ if len(msgs.messages) == 0:
     msgs.add_ai_message("How can I help you?")
 
 
-view_messages = st.expander("View the message contents in session state")
 
 # Set up the LangChain, passing in Message History
 
