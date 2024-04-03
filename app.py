@@ -31,7 +31,7 @@ prompt = ChatPromptTemplate.from_messages(
 
 # Function to send user query to API Gateway and fetch response
 def send_query_to_api(query):
-    api_endpoint = "https://3fj11w32na.execute-api.us-east-1.amazonaws.com/Prod/hello/"
+    api_endpoint = "https://7nk9sh7271.execute-api.us-west-2.amazonaws.com/Prod/hello/"
     payload = {"question": query}
     response = requests.post(api_endpoint, json=payload)
     return response.json()
