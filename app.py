@@ -5,8 +5,8 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 import streamlit as st
 import requests
 
-st.set_page_config(page_title="AnyWhere AI Assistant", page_icon="Air Products Logo.png")
-st.title("AnyWhere AI Assistant")
+st.set_page_config(page_title="Hybrid Search AI Assistant", page_icon="peccy.png")
+st.title("Hybrid Search AI Assistant")
 
 """
 Your Desk-side Digital Genius. Redefining Efficiency, One Prompt at a Time!
